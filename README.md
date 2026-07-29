@@ -10,7 +10,7 @@ due date.
 ## Package layout
 
 ```
-com.auca.library
+auca.ac.rw
  ├── domain        entities (Person is a @MappedSuperclass, not its own table)
  ├── domain.enums   Gender, LocationType, Role, BookStatus, MembershipStatus
  ├── dao            Hibernate Session-based DAOs (GenericDao/AbstractDao + one per entity)
@@ -37,7 +37,7 @@ com.auca.library
 | 12 | Late fee calculation | `BorrowService.calculateLateFee(UUID)` |
 
 All 21 model JUnit 4 test cases from the assignment brief are implemented
-under `src/test/java/com/auca/library/service/`, one test class per service.
+under `src/test/java/auca/ac/rw/service/`, one test class per service.
 
 ## Local setup
 
@@ -46,9 +46,9 @@ under `src/test/java/com/auca/library/service/`, one test class per service.
    createdb auca_library_db
    createdb auca_library_test_db
    ```
-2. Edit `src/main/resources/hibernate.cfg.xml` (and
-   `src/test/resources/hibernate-test.cfg.xml`) if your Postgres
-   username/password differ from `postgres` / `postgres`.
+2. Edit `src/main/resources/application.properties` (and
+   `src/test/resources/application-test.properties`) if your Postgres
+   username/password differ from `auca` / `auca123`.
 3. Build and run the tests:
    ```bash
    mvn clean test
@@ -64,3 +64,6 @@ under `src/test/java/com/auca/library/service/`, one test class per service.
   plaintext.
 - `BorrowService.LOAN_PERIOD_DAYS` (14) is the fixed loan period used to
   compute a due date from the pickup date.
+- Hibernate is configured from `.properties` files (not `hibernate.cfg.xml`);
+  `HibernateUtil` loads the properties and registers each entity with
+  `addAnnotatedClass(...)`.
